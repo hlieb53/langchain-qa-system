@@ -1,3 +1,7 @@
+# Public
+assets/
+chroma/
+
 # OSX
 .DS_STORE
 
