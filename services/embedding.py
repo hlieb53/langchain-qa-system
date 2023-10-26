@@ -7,7 +7,7 @@ from langchain.docstore.document import Document
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.llms import OpenAI
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.vectorstores.chroma import Chroma
+from langchain.vectorstores import Chroma
 
 
 def embed_json(file_path: str) -> List[Document]:

@@ -1,4 +1,4 @@
-langchain==0.0.323
+langchain==0.0.284
 chromadb==0.4.15
 python-dotenv==1.0.0
 fastapi==0.104.0
@@ -6,3 +6,4 @@ gunicorn==21.2.0
 openai==0.28.1
 tiktoken==0.5.1
 urllib3==1.25.11
+# sentence-transformers==2.2.2
