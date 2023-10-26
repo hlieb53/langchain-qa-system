@@ -18,9 +18,10 @@ def main():
     embed_json("assets/q_a.json")
     
     qa_chain = configure_retrieval_chain()
-    question = input("Question:")
-    qa_chain(question)
-    print("Answer: ")
+    while True:
+        question = input("Question:")
+        qa_chain(question)
+        print("Answer: ")
     
 if __name__ == "__main__":
     main()
