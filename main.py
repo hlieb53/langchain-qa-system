@@ -16,7 +16,7 @@ def startup():
     
 def main():
     logging.basicConfig(filename="./output.log", level=logging.INFO)
-    embed_json_as_raw_text("assets/q_a.json")
+    embed_json_as_raw_text(os.environ.get("QA_JSON_PATH"))
     
     qa_chain = configure_retrieval_chain()
     while True:
