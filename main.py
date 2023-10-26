@@ -15,13 +15,16 @@ def startup():
     logging.info("Done startup stuff")
     
 def main():
+    logging.basicConfig(filename="./output.log", level=logging.INFO)
     embed_json("assets/q_a.json")
     
     qa_chain = configure_retrieval_chain()
     while True:
+        print(f"{'-' * 40}\n")
         question = input("Question:")
+        print("Answer:")
         qa_chain(question)
-        print("Answer: ")
+        print(f"\n{'-' * 40}\n")
     
 if __name__ == "__main__":
     main()

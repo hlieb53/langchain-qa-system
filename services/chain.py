@@ -19,7 +19,7 @@ def configure_retrieval_chain():
     memory = ConversationSummaryMemory(llm=llm, memory_key="chat_history",return_messages=True)
     
     CHROMA_DB_DIRECTORY = os.environ.get("CHROMA_DB_DIRECTORY")
-    vectorstore = Chroma(persist_directory=CHROMA_DB_DIRECTORY, embedding=OpenAIEmbeddings())
+    vectorstore = Chroma(persist_directory=CHROMA_DB_DIRECTORY, embedding_function=OpenAIEmbeddings())
 
     retriever = vectorstore.as_retriever()
     qa = ConversationalRetrievalChain.from_llm(llm, retriever=retriever, memory=memory)

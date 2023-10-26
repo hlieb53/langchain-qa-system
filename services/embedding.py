@@ -49,7 +49,7 @@ def embed_json(file_path: str) -> List[Document]:
     embeddings = OpenAIEmbeddings()
     
     Chroma.from_documents(texts, embeddings, persist_directory=CHROMA_DB_DIRECTORY)
-    logging.log(texts)
+    logging.info(texts)
     
     logging.info("--> Successfully embedded JSON file.")
     
