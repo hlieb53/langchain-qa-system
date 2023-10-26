@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
 import os, logging
 from services.chain import configure_retrieval_chain
-from services.embedding import embed_json
+from services.embedding import embed_json_as_csv, embed_json_as_raw_text
 
 load_dotenv()
 
@@ -16,7 +16,7 @@ def startup():
     
 def main():
     logging.basicConfig(filename="./output.log", level=logging.INFO)
-    embed_json("assets/q_a.json")
+    embed_json_as_raw_text("assets/q_a.json")
     
     qa_chain = configure_retrieval_chain()
     while True:

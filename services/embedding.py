@@ -10,7 +10,7 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.vectorstores import Chroma
 
 
-def embed_json(file_path: str) -> List[Document]:
+def embed_json_as_csv(file_path: str) -> List[Document]:
     logging.info("Embedding JSON files")
 
     logging.info("--> Loading and refactoring JSON files")
@@ -56,5 +56,29 @@ def embed_json(file_path: str) -> List[Document]:
 
     Chroma.from_documents(texts, embeddings, persist_directory=CHROMA_DB_DIRECTORY)
     logging.info(texts)
+
+    logging.info("--> Successfully embedded JSON file.")
+
+
+def embed_json_as_raw_text(file_path: str) -> List[Document]:
+    logging.info("Embedding JSON files")
+
+    logging.info("--> Loading and refactoring JSON files")
+
+    qa_set: List[Any] = []
+    with open(file_path, "r") as f:
+        qa_set = json.load(f)
+
+    refactored_qa_set: List[Document] = []
+    for qa in qa_set:
+        refactored_qa_set.append(Document(page_content=f'Question:{qa["question"]}\nAnswer:{qa["answer"]}'))
+
+    logging.info("--> Successfully refactored JSON and saved.")
+    logging.info("--> Loading and embedding JSON file")
+
+    CHROMA_DB_DIRECTORY = os.environ.get("CHROMA_DB_DIRECTORY")
+    embeddings = OpenAIEmbeddings()
+    Chroma.from_documents(refactored_qa_set, embeddings, persist_directory=CHROMA_DB_DIRECTORY)
+    logging.info(refactored_qa_set)
 
     logging.info("--> Successfully embedded JSON file.")
