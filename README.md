@@ -41,13 +41,12 @@ cp example.env .env
 
 3. Paste the JSON file of predefined questions and answers in any directory.
 - `OPENAI_API_KEY`: OpenAI API Key
-- `QA_JSON_PATH`: The JSON file of predefined questions and answers.
 - `CHROMA_DB_DIRECTORY`: The location of The local ChromaDB vectorstore.
-4. Run `main.py` file in the virtual environment.
+4. Run `app/main.py` file in the virtual environment.
 
 ```bash
 source env/bin/activate
-python main.py
+gunicorn --bind 0.0.0.0:8000 app.main:app -k uvicorn.workers.UvicornWorker --timeout 1500 --reload
 ```
 
 ## Cautions

@@ -31,14 +31,14 @@ def configure_conversational_retrieval_chain():
     qa = ConversationalRetrievalChain.from_llm(llm, retriever=retriever, memory=memory)
     return qa
 
-def configure_retrieval_chain():
+def configure_retrieval_chain(**kwargs):
     
     # LLM
-    llm = OpenAI(streaming=True, callbacks=[StreamingStdOutCallbackHandler()], temperature=0, verbose=True)
+    llm = OpenAI(verbose=True, **kwargs)
     
     CHROMA_DB_DIRECTORY = os.environ.get("CHROMA_DB_DIRECTORY")
     vectorstore = Chroma(persist_directory=CHROMA_DB_DIRECTORY, embedding_function=OpenAIEmbeddings())
 
-    qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=vectorstore.as_retriever(search_kwargs={'k': 4}))
+    qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=vectorstore.as_retriever(search_kwargs={'k': 1}))
 
     return qa
