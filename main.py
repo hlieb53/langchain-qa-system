@@ -2,6 +2,7 @@ from dotenv import load_dotenv
 import os, logging
 from services.chain import configure_retrieval_chain
 from services.embedding import embed_json_as_csv, embed_json_as_raw_text
+from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 
 load_dotenv()
 
@@ -18,7 +19,7 @@ def main():
     logging.basicConfig(filename="./output.log", level=logging.INFO)
     embed_json_as_raw_text(os.environ.get("QA_JSON_PATH"))
     
-    qa_chain = configure_retrieval_chain()
+    qa_chain = configure_retrieval_chain(streaming=True, callbacks=[StreamingStdOutCallbackHandler()], temperature=0)
     while True:
         print(f"{'-' * 40}\n")
         question = input("Question:")
